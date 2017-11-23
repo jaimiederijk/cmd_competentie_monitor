@@ -1,0 +1,39 @@
+{
+  "name": "tauwapp",
+  "version": "0.0.0",
+  "engines": {
+    "node": "6.11.0",
+    "npm": "4.4.4"
+  },
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "sass": "node-sass -w public/stylesheets/ -o public/build/css/",
+    "expose": "ngrok http 3000",
+    "js": "node_modules/.bin/browserify public/javascripts/*.js -o public/build/js/build.js"
+  },
+  "dependencies": {
+    "body-parser": "~1.17.1",
+    "compression": "^1.6.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "ejs": "~2.5.6",
+    "express": "~4.15.2",
+    "mongodb": "^2.2.28",
+    "morgan": "~1.8.1",
+    "serve-favicon": "~2.4.2"
+  },
+  "devDependencies": {
+    "browserify": "^14.4.0",
+    "compression": "^1.6.2",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "mkdirs": "0.0.2",
+    "ngrok": "^2.2.9",
+    "node-sass": "^4.5.3"
+  }
+}
