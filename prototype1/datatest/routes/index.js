@@ -3,14 +3,19 @@ var router = express.Router();
 var connector  = require('../lib/connector');
 
 router.get('/', function(req, res, next) {
-
-  res.render('index', {
-      title: 'Home',
-      curentSector: "",
-      page: "index",
-      allSensors: {sector: "nothing"}
-  });
-
+  connector.find.findSettings ({},  { studie: 1 }, function(docs) {
+    console.log(docs[0].studie);
+    res.render('index', {
+      title: "forms",
+      studie: docs[0].studie
+    });
+  })
 });
+
+router.get('/newform', function(req, res, next) {
+  res.render('newform', {
+    title: "new form"
+  })
+})
 
 module.exports = {router: router};
