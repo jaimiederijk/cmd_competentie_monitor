@@ -1,21 +1,41 @@
-<section>
-  <form class="userInput" action="./add" method="post">
+<section class="newformform">
+  <form class="userInput" action="" method="post">
+    <input id="formname" type="text" name="formname" placeholder="new form"> <span>*required</span><br/>
 
-    <fieldset id="1">
+    <fieldset id="newform1" class="">
       <legend>Onderwerp</legend>
-      <label for="onderwerp"></label>
-      <input id="onderwerp" type="text" name="onderwerp"> <span>*required</span><br/>
+      <label for="subject">Wat is het onderwerp ?</label>
+      <input id="subject" type="text" name="subject"> <span>*required</span><br/>
+      <button type="button">ok</button>
+    </fieldset>
 
-      <label for="email">Email adres</label>
-      <input id="email" type="email" name="email"> <span>*required</span><br/>
+    <fieldset id="newform2" class="hidden">
+      <label for="subsubjectboolean">Zijn er sub groepen bij dit onderwerp?</label>
+      <input id="subsubjectboolean1" type="radio" value=true name="subsubjectboolean"><label for="subsubjectboolean1">ja</label>
+      <input id="subsubjectboolean2" type="radio" value=false name="subsubjectboolean"><label for="subsubjectboolean2">nee</label><span>*required</span><br>
+      <button type="button">ok</button>
+    </fieldset>
 
-      <label for="mobile">Telefoon nummer</label>
-      <input id="mobile" type="tel" name="mobile"> <span>*required</span><br/>
+    <fieldset id="newform3" class="hidden">
+      <label for="subsubjects">Wat zijn de sub onderwerpen ?</label>
+      <textarea id="subsubjects" type="textarea" name="onderwerp"></textarea><span>*required</span><br/>
+      <button type="button">ok</button>
+    </fieldset>
 
-      <label for="profilePhoto">Profielfoto</label>
-      <input id="profilePhoto" type="url" name="profielfoto">
-      <img id="output"/>
+    <fieldset id="newform4" class="hidden">
+      <label for="onderwerp">Wat zijn de termen ?</label>
+      <textarea id="onderwerp" type="textarea" name="termen"></textarea><span>*required</span><br/>
+      <button type="button">ok</button>
+    </fieldset>
+
+    <fieldset id="newform5" class="hidden">
+      <label for="onderwerp">Wat wil je weten over de termen ?</label>
+      <input id="onderwerp" type="text" name="onderwerp"><span>*required</span><br/>
+      <button type="button">ok</button>
     </fieldset>
   </form>
+  <div id="output">
+
+  </div>
 
 </section>

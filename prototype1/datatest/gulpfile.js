@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var exec = require('child_process').exec;
 var mkdirs = require('mkdirs');
-var browserify = require('gulp-browserify');
+var bro = require('gulp-bro');
 var rename = require('gulp-rename');
 var autoprefixer = require('gulp-autoprefixer');
 
@@ -47,19 +47,18 @@ gulp.task('sass', function() {
         .pipe(gulp.dest('public/build/css'));
 });
 
-gulp.task('scripts', function() {
-    gulp.src('public/javascripts/main.js')
-        .pipe(browserify({
-          insertGlobals : true,
-          debug : !gulp.env.production
-        }))
+gulp.task('build', function() {
+  return gulp.src('public/javascript/main.js')
+        .pipe(bro())
         .pipe(rename('build.js'))
         .pipe(gulp.dest('public/build/js/'))
 });
 
 gulp.task('watch', function() {
+  gulp.watch(['./public/**/*.js', './public/*.js'], ['build'])
+  // gulp.watch('public/javascripts/*.js', ['scripts']);
     gulp.watch('public/stylesheets/*.scss', ['sass']);
-    gulp.watch('public/javascripts/*.js', ['scripts']);
+
 });
 
 gulp.task('start', function () {
@@ -79,4 +78,4 @@ gulp.task('start-live', function () {
 })
 gulp.task('live',['start-live']);
 
-gulp.task('default', ['sass','scripts','start-mongo', 'watch','start']);
+gulp.task('default', ['sass','build','start-mongo', 'watch','start']);

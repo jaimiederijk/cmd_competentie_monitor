@@ -13,9 +13,15 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/newform', function(req, res, next) {
-  res.render('newform', {
-    title: "new form"
+  console.log('Accessing the secret section ...')
+  connector.find.findSettings ({},  { studie: 1 }, function(docs) {
+    console.log(docs[0].studie);
+    res.render('newform', {
+      title: "new form",
+      studie: docs[0].studie
+    })
   })
+
 })
 
 module.exports = {router: router};
