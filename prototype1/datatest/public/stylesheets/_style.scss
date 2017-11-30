@@ -9,7 +9,10 @@ header {
 section {
   width: 50%;
 }
-
+#formexample {
+  margin-top: 20px;
+  background-color: rgb(255, 249, 188);
+}
 .hidden {
-  opacity: 0.5;
+  display: none;
 }

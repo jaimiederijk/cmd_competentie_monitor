@@ -1,0 +1,52 @@
+var state2 = {
+  type:"form",
+  formName: "new form",
+
+  sections: [
+    {
+      subject:"competenties",
+
+      subSubjects:[
+        {
+          subSubjectsName:"kaderen",
+          terms: [
+            {
+              term:"omgaan",
+              question: "",
+              answer:[
+                {
+                  course:"ubi",
+                  answer:"ff"
+                },
+                {
+                  course:"internet",
+                  answer:"ff"
+                }
+              ]
+            },
+            {
+              term:"doelgericht",
+              answer:[
+                {
+
+                }
+              ]
+            }
+          ]
+
+        },
+        {
+
+        }
+      ]
+    },
+    {
+      subject: "methods",
+      terms: [
+
+      ]
+    }
+  ]
+
+
+}
