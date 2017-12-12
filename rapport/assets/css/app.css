@@ -1,0 +1,23 @@
+.main-content {
+  max-width: 40em;
+
+}
+.sticky {
+  position: fixed;
+}
+.card_container {
+
+}
+.card {
+  width: 30%;
+  height: 15em;
+  vertical-align:top;
+  font-size: 0.9em;
+  background-color: rgb(160, 199, 178);
+  padding: 0.7rem;
+  margin: 0.5rem;
+  display: inline-block;
+}
+#content li {
+  list-style: none;
+}
