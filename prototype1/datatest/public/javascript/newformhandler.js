@@ -1,5 +1,6 @@
 var formexample = require('./formexample.js');
 var termsFormHandler = require('./termsformhandler.js');
+var ejs = require('ejs');
 
 var htmlElements = {
   body: document.querySelector('body'),
@@ -11,7 +12,7 @@ var htmlElements = {
 
 var state = {
   type:"form",
-  formName: "new form",
+  formName: "",
 
   sections: [
 
@@ -29,6 +30,8 @@ var formState = {
 var sectionState = {
 
 }
+
+var createFormElements
 
 var listeners = {
   radioBtnChange : function () {
@@ -97,7 +100,11 @@ var helperFuntions = {
   },
   processForm : function (key, answer) {
     var combinedState = state;
-    //
+    debugger
+    // formName
+    if (key == "formname") {
+      state.formName = answer;
+    }
 
     //add subsubjects
     if (key == "subsubjects") {
@@ -115,7 +122,7 @@ var helperFuntions = {
     if (key == "terms") {
 
     }
-    //debugger
+
     //add subject
     if (key == "subject") {
       sectionState.subject = answer;
