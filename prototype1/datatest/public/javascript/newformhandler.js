@@ -4,12 +4,13 @@ var ejs = require('ejs');
 
 var htmlElements = {
   body: document.querySelector('body'),
+  form: document.querySelector('.userInput'),
 	subsubjectradiobutton: document.querySelectorAll(".newformform input[name='subsubjectboolean']"),
   fieldButtons : document.querySelectorAll(".newformform fieldset button"),
   firstInput: document.querySelectorAll(".newformform fieldset input, fieldset textarea"),
   fields: document.querySelectorAll(".newformform fieldset")
 }
-
+// the data object for the competentie
 var state = {
   type:"form",
   formName: "",
@@ -21,7 +22,7 @@ var state = {
 }
 
 
-
+// state of
 var formState = {
   index:0,
   prevIndex:0
@@ -31,7 +32,27 @@ var sectionState = {
 
 }
 
-var createFormElements
+var createFormElements = {
+  termsTemplate: function (subsubject, index) {
+
+    var template = ejs.render (
+      `
+
+        <label for="onderwerp">Wat zijn de indicatoren die onder <%= subsubject %> vallen ?</label>
+        <textarea id="terms" type="textarea" name="terms"></textarea><span>*required</span><br/>
+        <button type="button">ok</button>
+
+      `,{subsubject: subsubject}
+
+    );
+    //debugger
+    var fieldset = document.createElement("fieldset");
+    fieldset.className = "hidden";
+    fieldset.setAttribute("id", "newform" + index);
+    fieldset.innerHTML = template;
+    htmlElements.form.appendChild(fieldset);
+  }
+};
 
 var listeners = {
   radioBtnChange : function () {
@@ -82,7 +103,7 @@ var listeners = {
 
 var helperFuntions = {
   displayActiveField : function () {
-    debugger
+    //debugger
     htmlElements.fields[formState.index].classList.remove("hidden");
     htmlElements.fields[formState.prevIndex].classList.add("hidden");
     formState.prevIndex=formState.index;
@@ -100,7 +121,7 @@ var helperFuntions = {
   },
   processForm : function (key, answer) {
     var combinedState = state;
-    debugger
+    // debugger
     // formName
     if (key == "formname") {
       state.formName = answer;
@@ -117,7 +138,9 @@ var helperFuntions = {
             subSubjectsName: arr[i]
           }
         );
+        createFormElements.termsTemplate(arr[i],i+5)
       }
+      htmlElements.fields = document.querySelectorAll(".newformform fieldset")
     }
     if (key == "terms") {
 
