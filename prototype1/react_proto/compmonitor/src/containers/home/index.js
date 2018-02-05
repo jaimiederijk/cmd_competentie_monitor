@@ -1,5 +1,6 @@
 import React from 'react'
 import { push } from 'react-router-redux'
+import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {
@@ -12,6 +13,7 @@ import {
 const Home = props => (
   <div>
     <h1>Home</h1>
+    <Link to="/about-us">About</Link>
     <p>Count: {props.count}</p>
 
     <p>
