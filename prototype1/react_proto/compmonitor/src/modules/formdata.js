@@ -18,7 +18,8 @@ export default (state = initialState, action) => {
     case CREATEFORM:
       return {
         ...state,
-        forms: state.forms.concat({name:"fff"}),
+
+        forms: state.forms.concat({name:action.values.formName}),
         creatingForm: !state.creatingForm
       }
 
@@ -28,14 +29,15 @@ export default (state = initialState, action) => {
 
 }
 
-export const createForm = () => {
+export const createForm = (values) => {
   return dispatch => {
     dispatch({
       type: CREATEFORM_REQUESTED
     })
 
     dispatch({
-      type: CREATEFORM
+      type: CREATEFORM,
+      values: values
     })
 
   }

@@ -11,7 +11,10 @@ const Forms = props => (
   <div>
     <h1>Forms</h1>
     {
-      props.forms.map((form) => { return <p key={form}><button onClick={() => props.changePage()}>{form.name}</button></p>})
+      props.forms.map((form, index) => {
+        console.log(index)
+        return <p key={index}><button onClick={() => props.changePage()}>{form.name}</button></p>
+      })
     }
 
 
