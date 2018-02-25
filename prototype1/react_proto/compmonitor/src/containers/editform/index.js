@@ -1,52 +1,51 @@
 import React from 'react'
 import { push } from 'react-router-redux'
+import { Route, Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import FormName from './formelements/name'
 import FormSubjects from './formelements/subjects'
 import {
-  createForm//,
-  //deleteForm
-} from '../../modules/formdata'
-
-let formIndex = 0
+  updateForm
+} from '../../actions'
 
 const EditForm = props => {
-  const createForm = values => {
-    formIndex ++
-    props.createForm(values)
-  }
-  const submit = values => {
 
+  const submit = values => {
+    values.id = props.id
+    props.updateForm(values)
     console.log(values)
   }
-  const formElements = [
-    <FormName onSubmit={createForm} />,
-    <FormSubjects onSubmit={submit} />
-  ]
-  console.log(props.forms)//<h2>{props.forms[0].formName}</h2>
+  // const formElements = [
+  //   <FormName onSubmit={updateForm} />,
+  //   <FormSubjects onSubmit={submit} />
+  // ]
+  //console.log(props.forms)//<h2>{props.forms[0].formName}</h2>//
   return (
     <div>
       <h1>Form editor</h1>
+      <h2>{props.form.name}</h2>
 
-      {formElements[formIndex]}
+      <Route path="/editform/:id/name" render={() => (
+        <FormName onSubmit={submit} />
+      )} />
+      <Route path="/editform/:id/subject" component={FormSubjects} />
 
 
-      <p><button onClick={props.createForm}>New form</button></p>
     </div>
   )
 }
 
-const mapStateToProps = state => ({
-  forms: state.formData.forms,
-  creatingForm: state.formData.creatingForm,
-  submit: state.formData
+const mapStateToProps = (state, ownProps) => ({
+  id: ownProps.match.params.id,
+  form: state.formData.forms.find(x => x.uuid === ownProps.match.params.id),
+  //creatingForm: state.formData.creatingForm,
+  //submit: state.formData
   //deletingForm: state.formdata.deletingForm
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  createForm,
-  changePage: () => push('/editform')
+  updateForm
 }, dispatch)
 
 export default connect(

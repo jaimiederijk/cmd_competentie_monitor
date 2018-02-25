@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form'
 
 const FormName = (props) => {
   const { handleSubmit, pristine, reset, submitting } = props
+  
   return (
     <form onSubmit={handleSubmit}>
       <div>

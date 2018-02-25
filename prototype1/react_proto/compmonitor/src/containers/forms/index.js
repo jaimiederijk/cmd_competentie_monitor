@@ -5,25 +5,35 @@ import { connect } from 'react-redux'
 import {
   createForm//,
   //deleteForm
-} from '../../modules/formdata'
+} from '../../actions'
 
-const Forms = props => (
-  <div>
-    <h1>Forms</h1>
-    {
-      props.forms.map((form, index) => {
-        console.log(index)
-        return <p key={index}><button onClick={() => props.changePage()}>{form.name}</button></p>
-      })
-    }
+const uuidv4 = require('uuid/v4');
+
+const Forms = props => {
+  const createForm = () => {
+    const id = uuidv4()
+    props.createForm(id)
+    props.changePage(id)
+  }
+  return (
+    <div>
+      <h1>Forms</h1>
+      {
+        props.forms.map((form, index) => {
+          console.log(index)
+          return <p key={index}><button onClick={() => props.changePage(form.uuid)}>{form.name}</button></p>
+        })
+      }
 
 
 
-    <p><button onClick={() => props.changePage()}>New form</button></p>
-  </div>
-)
+      <p><button onClick={createForm}>New form</button></p>
+    </div>
+  )
+}
 
-const mapStateToProps = state => ({
+
+const mapStateToProps = state=> ({
   forms: state.formData.forms,
   creatingForm: state.formData.creatingForm//,
   //deletingForm: state.formdata.deletingForm
@@ -31,7 +41,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   createForm,
-  changePage: () => push('/editform')
+  changePage: (id) => push('/editform/'+ id + '/name')
 }, dispatch)
 
 export default connect(

@@ -17,7 +17,7 @@ const App = () => (
     <main>
       <Route exact path="/" component={Home} />
       <Route exact path="/forms" component={Forms} />
-      <Route exact path="/editform" component={EditForm} />
+      <Route path="/editform/:id" component={EditForm} />
       <Route exact path="/about-us" component={About} />
     </main>
   </div>
