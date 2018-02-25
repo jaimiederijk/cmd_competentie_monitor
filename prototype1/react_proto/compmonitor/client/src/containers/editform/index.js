@@ -29,7 +29,10 @@ const EditForm = props => {
       <Route path="/editform/:id/name" render={() => (
         <FormName onSubmit={submit} />
       )} />
-      <Route path="/editform/:id/subject" component={FormSubjects} />
+      <Route path="/editform/:id/subject" render={() => (
+        <FormSubjects onSubmit={submit} />
+      )} />
+
 
 
     </div>
