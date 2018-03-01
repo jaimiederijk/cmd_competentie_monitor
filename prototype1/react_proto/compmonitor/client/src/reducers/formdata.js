@@ -2,17 +2,37 @@ import {
   CREATEFORM_REQUESTED,
   CREATEFORM,
   UPDATEFORM_REQUESTED,
-  UPDATEFORM
+  UPDATEFORM,
+  FETCHFORMS_REQUESTED,
+  FETCHFORMS
 } from '../actions'
 
 const initialState = {
   forms:[], // !!! change to Hash Tables https://hackernoon.com/redux-patterns-add-edit-remove-objects-in-an-array-6ee70cab2456
   creatingForm: false,
-  updatingForm:false
+  updatingForm:false,
+  retrievingForms:false
 }
+
+
+
+
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case FETCHFORMS_REQUESTED:
+      return {
+        ...state,
+        retrievingForms: true
+      }
+
+    case FETCHFORMS:
+      return {
+        ...state,
+
+        forms: action.forms,
+        retrievingForms: false
+      }
     case CREATEFORM_REQUESTED:
       return {
         ...state,
@@ -23,8 +43,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
 
-        forms: state.forms.concat({uuid:action.uuid,name:"unnamed form"}),
-        creatingForm: !state.creatingForm
+        forms: state.forms.concat(action.newForm),
+        creatingForm: false
       }
 
     case UPDATEFORM_REQUESTED:
@@ -32,14 +52,15 @@ export default (state = initialState, action) => {
         ...state,
         updatingForm: true
       }
+
     case UPDATEFORM:
       return {
         ...state,
         forms: state.forms.map(
-          (form, i) => form.uuid === action.values.id ? {...form, name : action.values.formName}
+          (form, i) => form.uuid === action.newForm.uuid ? action.newForm
                                                       : form
         ),
-        updatingForm: !state.creatingForm
+        updatingForm: false
       }
     default:
       return state

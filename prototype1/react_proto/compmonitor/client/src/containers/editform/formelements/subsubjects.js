@@ -1,15 +1,14 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 
-const FormName = (props) => {
+const FormSubjects = (props) => {
   const { handleSubmit, pristine, reset, submitting } = props
-
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Form name</label>
+        <label>Your forms subject or subjects</label>
         <div>
-          <Field name="name" component="input" type="text" placeholder="Form123"/>
+          <Field name="subject" component="input" type="text" placeholder="Competenties"/>
         </div>
       </div>
 
@@ -22,5 +21,5 @@ const FormName = (props) => {
 }
 
 export default reduxForm({
-  form: 'formname'  // a unique identifier for this form
-})(FormName)
+  form: 'formsubjects'  // a unique identifier for this form
+})(FormSubjects)

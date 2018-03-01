@@ -3,7 +3,7 @@ import { Route, Link } from 'react-router-dom'
 import Home from '../home'
 import About from '../about'
 import Forms from '../forms'
-import EditForm from '../editform'
+
 
 const App = () => (
   <div>
@@ -16,8 +16,8 @@ const App = () => (
 
     <main>
       <Route exact path="/" component={Home} />
-      <Route exact path="/forms" component={Forms} />
-      <Route path="/editform/:id" component={EditForm} />
+      <Route path="/forms" component={Forms} />
+
       <Route exact path="/about-us" component={About} />
     </main>
   </div>

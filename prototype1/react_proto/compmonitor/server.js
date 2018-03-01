@@ -26,7 +26,7 @@ app.get('/', function(req, res) {
 });
 
 
-app.post('/api/save', function(req, res) {
+app.post('/api/createform', function(req, res) {
   const jsonObject = req.body;
 
   MongoClient.connect(url, function(err, client){
@@ -41,38 +41,57 @@ app.post('/api/save', function(req, res) {
 
 });
 
-app.post('/api/update', function(req, res) {
-  const jsonObject = req.body;
+app.post('/api/updateform', function(req, res) {
+  let jsonObject = req.body;
+  delete jsonObject["_id"];
 
   MongoClient.connect(url, function(err, client){
-         assert.equal(null,err);
+     assert.equal(null,err);
+     console.log(jsonObject);
+     console.log("succes connect");
+     const db = client.db(dbName);
+     const query = {"uuid":jsonObject.uuid}
 
-         console.log("succes connect");
-         const db = client.db(dbName);
+     updateDocument("forms", query, jsonObject, db,function(result) {
+       res.json(result);
 
-         updateDocument("forms", query, jsonObject, db);
-      })
-  MongoClient.connect(url, function(err, client){
-    assert.equal(null,err);
-
-
-    console.log("succes connect");
-    const db = client.db(dbName);
-
-    createDocument("forms", jsonObject, db);
+     })
   })
 
 });
 
-app.get("/api/return", (req,res) => {
+app.get("/api/getforms", (req,res) => {
+  var query = {};
 
+  MongoClient.connect(url, function(err, client) {
+     assert.equal(null, err);
+     console.log("Connected successfully to server");
+     const db = client.db(dbName);
+
+     findDocuments("forms", query ,db, function(docs) {
+       res.json(docs);
+
+     });
+   });
 })
 
-var updateDocument = function(collection, query, json, db){
+var findDocuments = function(collection, query, db, callback) {
+  // Get the documents collection
+  var collection = db.collection(collection);
+  // Find some documents
+  collection.find( query ).toArray(function(err, docs) {
+    assert.equal(err, null);
+    callback(docs);
+  });
+}
+
+var updateDocument = function(collection, query, json, db, callback){
+  console.log("updating"+query);
     var collection = db.collection(collection);
-    collection.updateOne({_id: ObjectId(query.id)}, {$set: json}, function(err, r) {
+    collection.updateOne(query, {$set: json}, function(err, r) {
           assert.equal(null, err);
           assert.equal(1, r.matchedCount);
+          callback(r);
       });
 };
 
