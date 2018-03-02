@@ -75,9 +75,9 @@ export const createForm = (id) => {
 
 export const updateForm = (values) => {
 
-  
 
-  if ("formName" in values) {
+
+  if ("name" in values) {
     values.form.name = values.name
   } else if ("subjects" in values) {
     values.form.subjects = values.subjects
