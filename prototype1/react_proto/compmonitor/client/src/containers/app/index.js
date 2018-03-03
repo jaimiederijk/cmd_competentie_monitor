@@ -8,10 +8,10 @@ import Forms from '../forms'
 const App = () => (
   <div>
     <header>
-      <h1>CMD monitor</h1>
-      <Link to="/">Home</Link>
+      <h1>CMD competentie monitor</h1>
+      {/*<Link to="/">Home</Link>
       <Link to="/about-us">About</Link>
-      <Link to="/forms">Forms</Link>
+      <Link to="/forms">Forms</Link>*/}
     </header>
 
     <main>

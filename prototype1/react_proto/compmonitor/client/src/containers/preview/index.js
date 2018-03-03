@@ -4,12 +4,20 @@ import { Route} from 'react-router-dom'
 import { connect } from 'react-redux'
 
 const FormInfo = (props) => {
-
+//debugger
   if (props.retrievingForms || !props.form) {
 
     return <p>loading</p>
   } else {
-    return <h2>{props.form.name}</h2>
+    return <div>
+        <h2>{props.form.name}</h2>
+        <div>
+        {props.form.subjects.map((t, index) => {
+          return <h3 key={index}>{t.subject} </h3>
+        })}
+        </div>
+      </div>
+
   }
 }
 
@@ -21,7 +29,7 @@ class Preview extends Component {
 
   render() {
     return (
-      <div>
+      <div className="preview">
         <h2>Preview</h2>
         <div>
           <FormInfo form={this.props.form} retrievingForms={this.props.retrievingForms}/>

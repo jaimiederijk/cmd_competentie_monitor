@@ -17,22 +17,24 @@ const renderSubjects = ({ fields, meta: { error, submitFailed } }) => (
     {fields.map((subject, index) => (
       <li key={index}>
         <button
+          className = "remove"
           type="button"
           title="Remove Subject"
+          label="remove"
           onClick={() => fields.remove(index)}
-        />
-        <h4>Subject #{index + 1}</h4>
+        >remove</button>
+        <h4></h4>
         <Field
           name={`${subject}.subject`}
           type="text"
           component={renderField}
-          label="subject"
+          label={"What is your #" + (index + 1) + " subject" }
         />
 
       </li>
     ))}
     <li>
-      <button type="button" onClick={() => fields.push({})}>
+      <button className="addtofield" type="button" onClick={() => fields.push({})}>
         Add subject
       </button>
       {submitFailed && error && <span>{error}</span>}
@@ -54,12 +56,12 @@ const FormSubjects = (props) => {
 
       <div>
         <button type="submit" disabled={pristine || submitting}>Submit</button>
-        <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
+
       </div>
     </form>
   )
 }
 
 export default reduxForm({
-  form: 'formsubjects'  // a unique identifier for this form
+  form: 'formsubjects'  // a unique identifier for this form<button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
 })(FormSubjects)

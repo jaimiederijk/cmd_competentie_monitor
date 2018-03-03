@@ -14,9 +14,9 @@ const FormList = (props) => {
   if (props.retrievingForms) {
     return <p>loading data</p>
   } else {
-    return <div> {
+    return <div > {
         props.forms.map((form, index) => {
-          return <p key={index}><button onClick={() => props.changePage(form.uuid)}>{form.name}</button></p>
+          return <p key={index}><button onClick={() => props.changePage(form.uuid)}><span>{form.name}</span> <span className="form_date">19-02-2018</span></button></p>
         })}
       </div>;
   }
@@ -36,11 +36,11 @@ class Forms extends Component {
 
   render() {
     return (
-      <div>
+      <div className="forms" >
         <Route exact path="/forms" render={() => (
-          <div>
+          <div className="forms_list">
             <FormList retrievingForms={this.props.retrievingForms} forms={this.props.forms} changePage={this.props.changePage}/>
-            <p><button onClick={this.processForm}>New form</button></p>
+            <p><button className="new_form" onClick={this.processForm}>+ New form</button></p>
           </div>
         )} />
 
@@ -66,7 +66,7 @@ const mapDispatchToProps = dispatch => {
   return {
     createForm: (id) => dispatch(createForm(id)),
     formsFetchData: () => dispatch(formsFetchData()),
-    changePage: (id) => dispatch(push('forms/editform/'+ id + '/name'))
+    changePage: (id) => dispatch(push('/forms/editform/'+ id + '/name'))
   }
 }
 

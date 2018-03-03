@@ -58,21 +58,24 @@ const EditForm = props => {
   // ]
   //console.log(props.forms)//<h2>{props.forms[0].formName}</h2>//
   return (
-    <div>
-      <h1>Form editor</h1>
+    <div >
+      <div className="editform">
+
+        <h2>Form editor</h2>
 
 
+        <a className="back" href="/">back</a>
+        <Route path="/forms/editform/:id/name" render={() => (
+          <FormName onSubmit={submit} />
+        )} />
+        <Route path="/forms/editform/:id/subjects" render={() => (
+          <FormSubjects onSubmit={submitOnSubject} />
+        )} />
+        <Route path="/forms/editform/:id/:subject/subsubjects" render={() => (
+          <FormSubsubjects onSubmit={submit} />
+        )} />
 
-      <Route path="/forms/editform/:id/name" render={() => (
-        <FormName onSubmit={submit} />
-      )} />
-      <Route path="/forms/editform/:id/subjects" render={() => (
-        <FormSubjects onSubmit={submitOnSubject} />
-      )} />
-      <Route path="/forms/editform/:id/:subject/subsubjects" render={() => (
-        <FormSubsubjects onSubmit={submit} />
-      )} />
-
+      </div>
       <Preview id={props.id}/>
 
     </div>

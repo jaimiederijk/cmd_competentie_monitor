@@ -7,7 +7,7 @@ const FormName = (props) => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Form name</label>
+        <label>Form name ?</label>
         <div>
           <Field name="name" component="input" type="text" placeholder="Form123"/>
         </div>
@@ -15,12 +15,12 @@ const FormName = (props) => {
 
       <div>
         <button type="submit" disabled={pristine || submitting}>Submit</button>
-        <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
+
       </div>
     </form>
   )
 }
 
 export default reduxForm({
-  form: 'formname'  // a unique identifier for this form
+  form: 'formname'  // a unique identifier for this form<button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
 })(FormName)
