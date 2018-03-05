@@ -1,23 +1,23 @@
 {
   "name": "compmonitor",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "history": "^4.7.2",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-redux": "^5.0.6",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "react-router-redux": "^5.0.0-alpha.9",
-    "react-scripts": "1.1.0",
-    "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
-  },
+  "version": "1.0.0",
+  "description": "",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "gulp default",
+    "client": "node start-client.js"
+  },
+  "author": "jaimie",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongodb": "^3.0.3"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.2.1"
   }
 }

@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+header {
+  background-color: #ffcc05;
+  padding: 1rem;
+}
+button {
+ padding:0.5rem;
+ width: 25em;
+ background-color: white;
+ border: #adadad solid 2px;
+ text-align: left;
+}
+
+.forms_list {
+  border: black solid 1px;
+  width: 30em;
+  margin: 1rem auto;
+  clear: both;
+}
+
+.forms_list .new_form {
+
+  width: 10em;
+  color: white;
+  font-weight: bold;
+  background-color: #134a96;
+  border: black solid 1px;
+  text-align: left;
+}
+.forms_list span {
+  float: left;
+}
+.forms_list .form_date {
+  float:  right;
+}
+.editform {
+  float: left;
+  width: 50%;
+  background-color: rgba(238, 238, 238, 1);
+  height: 100vh;
+}
+.preview {
+  float: right;
+  width: 50%;
+  background-color: white;
+}
+.preview > * , .editform > *, .forms_list > *  {
+  margin-left: 1rem;
+}
+.editform form div {
+      margin-top: 1rem;
+}
+.editform form input {
+      padding: 0.4rem;
+}
+.editform form button {
+  color: white;
+  font-weight: bold;
+  width: 6em;
+  margin-left: 0;
+  text-align:center;
+    background-color: #134a96;
+      border: black solid 1px;
+}
+.editform form button:disabled {
+    background: #a5a5a5;
+}
+.editing {
+  border-left: 5px solid #134a96;
+  padding-left: 0.5rem;
+  min-height:1em; 
+}
+.back {
+  float: right;
+  color: black;
+  font-weight: bold;
+  margin:0 4rem;
+}
+li {
+  list-style-type: none;
+}
+.remove {
+  float: right;
+  margin-right: 4rem;
+}
+.editform form .addtofield {
+  margin-top: 1rem;
+  width: auto;
+}
