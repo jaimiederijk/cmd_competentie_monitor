@@ -14,7 +14,8 @@ const FormList = (props) => {
   if (props.retrievingForms) {
     return <p>loading data</p>
   } else {
-    return <div > {
+    return <div >
+        <h2>Forms</h2>{
         props.forms.map((form, index) => {
           return <p key={index}><button onClick={() => props.changePage(form.uuid)}><span>{form.name}</span> <span className="form_date">19-02-2018</span></button></p>
         })}

@@ -47,7 +47,7 @@ const FormSubjects = (props) => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Your forms subject or subjects</label>
+        <label>What are your forms subject or subjects</label>
         <div>
           <FieldArray name="subjects" component={renderSubjects} />
 

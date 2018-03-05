@@ -75,12 +75,12 @@ export const createForm = (id) => {
 
 export const updateForm = (values) => {
 
-
+  let newForm = values.form
 
   if ("name" in values) {
-    values.form.name = values.name
+    newForm.name = values.name
   } else if ("subjects" in values) {
-    values.form.subjects = values.subjects
+    newForm.subjects = values.subjects
     // if (!("subjects" in values)) {
     //   values.subjects = []
     // }
@@ -89,7 +89,7 @@ export const updateForm = (values) => {
   }
 
 
-  const newForm = values.form
+
 
   saveFormData(newForm,'/api/updateform')
 

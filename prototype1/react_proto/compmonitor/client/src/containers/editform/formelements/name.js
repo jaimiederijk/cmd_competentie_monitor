@@ -9,7 +9,7 @@ const FormName = (props) => {
       <div>
         <label>Form name ?</label>
         <div>
-          <Field name="name" component="input" type="text" placeholder="Form123"/>
+          <Field name="name" component="input" type="text" placeholder={props.placeholder}/>
         </div>
       </div>
 

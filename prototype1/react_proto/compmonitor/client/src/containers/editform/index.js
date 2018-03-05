@@ -1,12 +1,11 @@
 import React from 'react'
 import { push } from 'react-router-redux'
 import { Route } from 'react-router-dom'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import FormName from './formelements/name'
 import FormSubjects from './formelements/subjects'
 import FormSubsubjects from './formelements/subsubjects'
-import Preview from '../preview'
+import Preview from '../preview/preview'
 import {
   updateForm
 } from '../../actions'
@@ -51,7 +50,14 @@ const EditForm = props => {
 
     props.changePageSubject(props.id, values.subjects[0].subject ,orderOfSubjectQuestions[subjectIndex])
   }
+  const placeholder = () => {
+    if (props.retrievingForms || !props.form) {
 
+      return <p>loading</p>
+    } else {
+      return props.form.name
+    }
+  }
   // const formElements = [
   //   <FormName onSubmit={updateForm} />,
   //   <FormSubjects onSubmit={submit} />
@@ -63,34 +69,41 @@ const EditForm = props => {
 
         <h2>Form editor</h2>
 
-
         <a className="back" href="/">back</a>
         <Route path="/forms/editform/:id/name" render={() => (
-          <FormName onSubmit={submit} />
+          <FormName onSubmit={submit} placeholder={placeholder()} />
         )} />
         <Route path="/forms/editform/:id/subjects" render={() => (
           <FormSubjects onSubmit={submitOnSubject} />
         )} />
-        <Route path="/forms/editform/:id/:subject/subsubjects" render={() => (
-          <FormSubsubjects onSubmit={submit} />
-        )} />
+        <Route path="/forms/editform/:id/:subject/subsubjects" render={(location) => {
+          return (
+          <FormSubsubjects onSubmit={submit} subject={location.match.params.subject}/>
+        )}} />
 
       </div>
-      <Preview id={props.id}/>
+      <Preview
+        id={props.id}
+        formdata={props.form}
+        updatingForm={props.updatingForm}
+        location={props.location}/>
 
     </div>
   )
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  id: ownProps.match.params.id,
-  retrievingForms: state.formData.retrievingForms,
-  form: state.formData.forms.find(x => x.uuid === ownProps.match.params.id),
-  updatingForm: state.formData.updatingForm,
+const mapStateToProps = (state, ownProps) => {
 
+  return {
+    id: ownProps.match.params.id,
+    location: ownProps.location.pathname,
+    retrievingForms: state.formData.retrievingForms,
+    form: state.formData.forms.find(x => x.uuid === ownProps.match.params.id),
+    updatingForm: state.formData.updatingForm,
+  }
   //submit: state.formData
   //deletingForm: state.formdata.deletingForm
-})
+}
 
 const mapDispatchToProps = dispatch => {
   return {
