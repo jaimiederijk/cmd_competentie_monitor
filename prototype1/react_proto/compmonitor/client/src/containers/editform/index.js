@@ -4,10 +4,14 @@ import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import FormName from './formelements/name'
 import FormSubjects from './formelements/subjects'
+import FormSubOrIndicators from './formelements/suborindicators'
+import FormIndicators from './formelements/indicators'
 import FormSubsubjects from './formelements/subsubjects'
 import Preview from '../preview/preview'
 import {
-  updateForm
+  updateForm,
+  changeEditSubject,
+  changeEditCurrentSubject
 } from '../../actions'
 
 
@@ -32,9 +36,9 @@ const EditForm = props => {
 
   const orderOfSubjectQuestions = [
     "subjects",
-    "subsubjects",
-    "level",
+    "suborindicators",
     "indicators",
+    "level",
     "questions",
     "newsubject"
   ]
@@ -42,20 +46,78 @@ const EditForm = props => {
   let subjectIndex = 0
 
   const submitOnSubject = values => {
+
     subjectIndex = orderOfSubjectQuestions.indexOf(Object.keys(values)[0])
     subjectIndex++
+    const getSubject = () => {
+      if (Object.keys(values)[0]==="subjects") {
+        return values.subjects[0].subject
+      } else {
+        return props.form.subjects.filter(t => props.location.includes(t.subject) )[0].subject
+      }
+    }
+    const subject = getSubject()
     values.form = props.form
+    values.subject = subject
     props.updateForm(values)
     console.log(values)
 
-    props.changePageSubject(props.id, values.subjects[0].subject ,orderOfSubjectQuestions[subjectIndex])
+    props.changePageSubject(props.id, subject, orderOfSubjectQuestions[subjectIndex])
   }
-  const placeholder = () => {
+
+  // const placeholder = () => {
+  //   if (props.retrievingForms || !props.form) {
+  //
+  //     return <p>loading</p>
+  //   } else {
+  //     return props.form.name
+  //   }
+  // }
+  const loadData = () => {
     if (props.retrievingForms || !props.form) {
 
       return <p>loading</p>
     } else {
-      return props.form.name
+      return (
+        <div>
+          <Route path="/forms/editform/:id/name" render={() => {
+            props.changeEditSubject("name")
+            return (
+              <FormName onSubmit={submit} placeholder={props.form.name} />
+            )
+          }} />
+
+          <Route path="/forms/editform/:id/subjects" render={() => {
+            props.changeEditSubject("subjects")
+            return (
+              <FormSubjects onSubmit={submitOnSubject} subjects={props.form.subjects}/>
+            )
+          }} />
+
+          <Route path="/forms/editform/:id/:subject/suborindicators" render={(location) => {
+            props.changeEditSubject("suborindicators")
+            props.changeEditCurrentSubject(location.match.params.subject)
+            return (
+              <FormSubOrIndicators onSubmit={submitOnSubject}/>
+            )
+          }} />
+
+          <Route path="/forms/editform/:id/:subject/indicators" render={(location) => {
+            props.changeEditSubject("indicators")
+            props.changeEditCurrentSubject(location.match.params.subject)
+            return (
+              <FormIndicators onSubmit={submitOnSubject} subject={location.match.params.subject}/>
+            )
+          }} />
+
+          <Route path="/forms/editform/:id/:subject/subsubjects" render={(location) => {
+            props.changeEditSubject("subsubjects")
+            props.changeEditCurrentSubject(location.match.params.subject)
+            return (
+            <FormSubsubjects onSubmit={submit} subject={location.match.params.subject}/>
+          )}} />
+        </div>
+      )
     }
   }
   // const formElements = [
@@ -68,18 +130,9 @@ const EditForm = props => {
       <div className="editform">
 
         <h2>Form editor</h2>
-
+        {loadData()}
         <a className="back" href="/">back</a>
-        <Route path="/forms/editform/:id/name" render={() => (
-          <FormName onSubmit={submit} placeholder={placeholder()} />
-        )} />
-        <Route path="/forms/editform/:id/subjects" render={() => (
-          <FormSubjects onSubmit={submitOnSubject} />
-        )} />
-        <Route path="/forms/editform/:id/:subject/subsubjects" render={(location) => {
-          return (
-          <FormSubsubjects onSubmit={submit} subject={location.match.params.subject}/>
-        )}} />
+
 
       </div>
       <Preview
@@ -107,6 +160,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    changeEditCurrentSubject: (subj) => dispatch(changeEditCurrentSubject(subj)),
+    changeEditSubject: (subj) => dispatch(changeEditSubject(subj)),
     updateForm: (values) => dispatch(updateForm(values)),
     changePage: (id,formelement) => dispatch(push('/forms/editform/'+ id + '/' + formelement)),
     changePageSubject: (id,subject,formelement) => dispatch(push('/forms/editform/'+ id + '/' + subject + "/" + formelement))

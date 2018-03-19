@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Field, FieldArray, reduxForm } from 'redux-form'
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
@@ -11,7 +12,9 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
   </div>
 )
 
-const renderSubjects = ({ fields, meta: { error, submitFailed } }) => (
+const renderSubjects = ({ fields, meta: { error, submitFailed } }) => {
+  //debugger
+  return (
   <ul>
 
     {fields.map((subject, index) => (
@@ -34,15 +37,15 @@ const renderSubjects = ({ fields, meta: { error, submitFailed } }) => (
       </li>
     ))}
     <li>
-      <button className="addtofield" type="button" onClick={() => fields.push({})}>
+      <button className="addtofield" type="button" onClick={() => fields.push()}>
         Add subject
       </button>
       {submitFailed && error && <span>{error}</span>}
     </li>
   </ul>
-)
+)}
 
-const FormSubjects = (props) => {
+let FormSubjects = (props) => {
   const { handleSubmit, pristine, reset, submitting } = props
   return (
     <form onSubmit={handleSubmit}>
@@ -62,6 +65,18 @@ const FormSubjects = (props) => {
   )
 }
 
-export default reduxForm({
+const mapStateToProps = (state, ownProps) => {
+  return {
+    initialValues: {subjects:ownProps.subjects}
+  }
+}
+
+FormSubjects = reduxForm({
   form: 'formsubjects'  // a unique identifier for this form<button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
 })(FormSubjects)
+
+FormSubjects = connect(
+  mapStateToProps
+)(FormSubjects)
+
+export default FormSubjects

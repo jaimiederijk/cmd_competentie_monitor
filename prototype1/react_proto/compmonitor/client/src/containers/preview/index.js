@@ -4,7 +4,7 @@ import { Route} from 'react-router-dom'
 import { connect } from 'react-redux'
 
 const Preview2 = props => {
-  
+
   const FormInfo = () => {
   debugger
     if (props.updatingForm || props.retrievingForms || !props.formdata) {
@@ -41,6 +41,8 @@ const Preview2 = props => {
 const mapStateToProps = (state, ownProp) => {
   //debugger
   return {
+    currentSubject: state.editFormState.editCurrentSubject,
+    editSubject: state.editSubject,
     form: state.formData.forms.find(x => x.uuid === ownProp.id),
     retrievingForms: state.formData.retrievingForms,
     updatingForm: state.formData.updatingForm,

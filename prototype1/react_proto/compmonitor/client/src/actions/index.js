@@ -5,6 +5,8 @@ export const UPDATEFORM = 'formdata/UPDATEFORM'
 export const FETCHFORMS_REQUESTED = 'formdata/FETCHFORMS_REQUESTED'
 export const FETCHFORMS = 'formdata/FETCHFORMS'
 
+export * from './editform'
+
 export const formsIsLoading = () => {
   return {
     type: 'FETCHFORMS_REQUESTED'
@@ -57,7 +59,7 @@ const saveFormData = (form, url) => {
 }
 
 export const createForm = (id) => {
-  const newForm = {"uuid":id, name:"unnamed form"}
+  const newForm = {"uuid":id, name:"unnamed form", subjects:[{subject:"unnamed subject"}]}
 
   saveFormData(newForm,'/api/createform')
 
@@ -76,7 +78,8 @@ export const createForm = (id) => {
 export const updateForm = (values) => {
 
   let newForm = values.form
-
+  debugger
+  const index = newForm.subjects.findIndex((i) => i.subject === values.subject)
   if ("name" in values) {
     newForm.name = values.name
   } else if ("subjects" in values) {
@@ -86,6 +89,15 @@ export const updateForm = (values) => {
     // }
 
     //values.sections.push
+  } else if ("suborindicators" in values) {
+
+    if (values.suborindicators === "indicators") {
+      newForm.subjects[index].indicators = []
+    } else if (values.suborindicators === "subsubjects") {
+      newForm.subjects[index].subsubjects = []
+    }
+  } else if ("indicators" in values) {
+    newForm.subjects[index].indicators = values.indicators
   }
 
 
