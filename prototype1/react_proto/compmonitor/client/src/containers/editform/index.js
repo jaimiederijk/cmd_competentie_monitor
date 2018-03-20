@@ -81,38 +81,38 @@ const EditForm = props => {
       return (
         <div>
           <Route path="/forms/editform/:id/name" render={() => {
-            props.changeEditSubject("name")
+            //props.changeEditSubject("name")
             return (
               <FormName onSubmit={submit} placeholder={props.form.name} />
             )
           }} />
 
           <Route path="/forms/editform/:id/subjects" render={() => {
-            props.changeEditSubject("subjects")
+            //props.changeEditSubject("subjects")
             return (
               <FormSubjects onSubmit={submitOnSubject} subjects={props.form.subjects}/>
             )
           }} />
 
           <Route path="/forms/editform/:id/:subject/suborindicators" render={(location) => {
-            props.changeEditSubject("suborindicators")
-            props.changeEditCurrentSubject(location.match.params.subject)
+            //props.changeEditSubject("suborindicators")
+            //props.changeEditCurrentSubject(location.match.params.subject)
             return (
               <FormSubOrIndicators onSubmit={submitOnSubject}/>
             )
           }} />
 
           <Route path="/forms/editform/:id/:subject/indicators" render={(location) => {
-            props.changeEditSubject("indicators")
-            props.changeEditCurrentSubject(location.match.params.subject)
+            //props.changeEditSubject("indicators")
+            //props.changeEditCurrentSubject(location.match.params.subject)
             return (
               <FormIndicators onSubmit={submitOnSubject} subject={location.match.params.subject}/>
             )
           }} />
 
           <Route path="/forms/editform/:id/:subject/subsubjects" render={(location) => {
-            props.changeEditSubject("subsubjects")
-            props.changeEditCurrentSubject(location.match.params.subject)
+            //props.changeEditSubject("subsubjects")
+            //props.changeEditCurrentSubject(location.match.params.subject)
             return (
             <FormSubsubjects onSubmit={submit} subject={location.match.params.subject}/>
           )}} />
@@ -135,15 +135,17 @@ const EditForm = props => {
 
 
       </div>
-      <Preview
-        id={props.id}
-        formdata={props.form}
-        updatingForm={props.updatingForm}
-        location={props.location}/>
+      <Preview id={props.id}/>
+
 
     </div>
   )
 }
+
+// id={props.id}
+// formdata={props.form}
+// updatingForm={props.updatingForm}
+// location={props.location}
 
 const mapStateToProps = (state, ownProps) => {
 

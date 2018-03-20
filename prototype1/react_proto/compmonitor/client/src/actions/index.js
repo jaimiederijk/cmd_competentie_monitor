@@ -13,6 +13,10 @@ export const formsIsLoading = () => {
   }
 }
 
+// export const setCurrentForm = () => {
+//   return dispatch =
+// }
+
 export const formsFetchData = () => {
 
   return dispatch => {
@@ -78,7 +82,7 @@ export const createForm = (id) => {
 export const updateForm = (values) => {
 
   let newForm = values.form
-  debugger
+  //debugger
   const index = newForm.subjects.findIndex((i) => i.subject === values.subject)
   if ("name" in values) {
     newForm.name = values.name
